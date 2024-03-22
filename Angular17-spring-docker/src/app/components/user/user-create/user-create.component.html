@@ -1,0 +1,22 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <h4>Alta Usuario</h4>
+    </div>
+    <div class="col-12">
+      <form [formGroup]="userForm" (ngSubmit)="handleSubmit()">
+        <div class="form-group">
+          <label for="user-name">
+            Nombre del usuario:
+            <input id="user-name" type="text" formControlName="name"/>
+          </label>
+        </div>
+        <!--footer boton guardar y cancelar-->
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary" [disabled]="!userForm.valid">Guardar</button>
+          <button type="button" class="btn btn-secondary">Cancelar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

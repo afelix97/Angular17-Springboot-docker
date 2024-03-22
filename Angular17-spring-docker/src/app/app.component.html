@@ -1,0 +1,4 @@
+<app-nav-header/>
+<router-outlet />
+{{ holdaMundo }} - {{ userSelect | json }}
+<app-user [userAdmin]="usuarioAdmin" (usuarioClick)="getUserSelect($event)"/>

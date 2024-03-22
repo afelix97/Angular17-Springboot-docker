@@ -1,0 +1,63 @@
+##Etapa 1: Instalación de dependencias
+FROM node:18-alpine as deps
+
+# Mensaje para indicar inicio de la etapa
+RUN echo "Iniciando etapa de instalación de dependencias..."
+
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
+
+# Mensaje para indicar fin de la etapa
+RUN echo "Instalación de dependencias completada."
+
+##Etapa 2: Construcción de la aplicación
+FROM node:18-alpine as builder
+
+# Mensaje para indicar inicio de la etapa
+RUN echo "Iniciando etapa de construcción de la aplicación..."
+
+WORKDIR /app
+COPY --from=deps /app/node_modules ./node_modules
+COPY . .
+RUN npm run build
+
+# Mensaje para indicar fin de la etapa
+RUN echo "Construcción de la aplicación completada."
+
+##Etapa 3: Ejecución de la aplicación en un servidor Nginx
+FROM nginx:alpine as prod
+
+# Mensaje para indicar inicio de la etapa
+RUN echo "Iniciando etapa de ejecución de la aplicación en un servidor Nginx..."
+
+EXPOSE 80
+COPY --from=builder /app/dist/angular17-spring-docker/browser /usr/share/nginx/html
+
+# Mensaje para indicar fin de la etapa
+RUN echo "Ejecución de la aplicación en un servidor Nginx completada."
+
+CMD [ "nginx", "-g", "daemon off;"]
+
+##Para desarrollo
+#FROM node:18-alpine
+
+#WORKDIR /app
+#COPY package*.json ./
+#RUN npm install
+#COPY . .
+#RUN npm run build
+#CMD ["npm", "start"]
+
+##Para producción
+#FROM node:18-alpine AS build
+
+#WORKDIR /app
+#COPY . .
+#RUN npm install
+#RUN npm run build
+
+## Server Application using Nginx Server
+#FROM nginx:alpine
+#COPY --from=build /app/dist/ /usr/share/nginx/html
+#EXPOSE 80
