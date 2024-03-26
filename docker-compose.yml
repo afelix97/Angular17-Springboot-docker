@@ -3,7 +3,7 @@ version: '3.9'
 services:
  angular_app:
   container_name: angular_app
-  image: pee-angular_app:1.0.1
+  image: pee-angular_app:1.0.2
   build: ./Angular17-spring-docker
   ports:
    - 4200:80

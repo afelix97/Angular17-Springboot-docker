@@ -3,7 +3,6 @@ import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import { User } from '../../interfaces/user';
 import { RouterLink } from '@angular/router';
 import { UserService } from '../../services/user/user.service';
-import { HttpClientModule } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -18,9 +17,6 @@ export class UserComponent {
   //Observable de usuarios
   public usersData$!: Observable<User[]>;
 
-  @Input() userAdmin: string = 'Not found Admin';
-  @Output() usuarioClick: EventEmitter<User> = new EventEmitter<User>();
-
   //Inyectamos el servicio de usuarios
   constructor(private readonly userService: UserService) { }
 
@@ -31,10 +27,6 @@ export class UserComponent {
     //Obtenemos los usuarios
     this.usersData$ = this.userService.getUsers();
 
-  }
-
-  userSelect(user: User) {
-    this.usuarioClick.emit(user);
   }
 
   //Funcion para eliminar usuario

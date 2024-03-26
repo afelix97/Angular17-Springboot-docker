@@ -14,14 +14,7 @@ import { CommonModule } from '@angular/common';
 })
 export class AppComponent {
   title: string = 'angular17-spring-docker';
-  usuarioAdmin: string = "Aldo Alejandro";
-
-  userSelect: User = {} as User;
 
   holdaMundo: string = "Hola Mundo en Angular!";
 
-  //se obtiene usuairo emitido del componente hijo user
-  getUserSelect($event: User): void {
-    this.userSelect = $event;
-  }
 }

@@ -4,19 +4,21 @@
       <h4>Alta Usuario</h4>
     </div>
     <div class="col-12">
-      <form [formGroup]="userForm" (ngSubmit)="handleSubmit()">
-        <div class="form-group">
-          <label for="user-name">
-            Nombre del usuario:
-            <input id="user-name" type="text" formControlName="name"/>
-          </label>
-        </div>
-        <!--footer boton guardar y cancelar-->
-        <div class="form-group">
-          <button type="submit" class="btn btn-primary" [disabled]="!userForm.valid">Guardar</button>
-          <button type="button" class="btn btn-secondary">Cancelar</button>
-        </div>
-      </form>
+      <div class="card">
+        <form [formGroup]="userForm" (ngSubmit)="handleSubmit()">
+          <div class="card-body">
+            <div class="mb-3">
+              <label for="user-name" class="form-label"> Nombre del usuario:</label>
+              <input id="user-name" class="form-control" type="text" formControlName="name" />
+            </div>
+          </div>
+          <!--footer boton guardar y cancelar-->
+          <div class="card-footer">
+            <button type="submit" class="btn btn-primary" [disabled]="!userForm.valid">Guardar</button>
+            <a class="btn btn-secondary" routerLink="/">Cancelar</a>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 </div>
