@@ -1,7 +1,20 @@
 <div class="container">
+  @if ( alertServiceObs$ | async; as alert) {
+  @if (alert.type != null) {
+  <div class="row">
+    <div
+      [ngClass]="{ 'alert': true, 'alert-success': alert.type === 'success', 'alert-danger': alert.type === 'error' }">
+      {{ alert.message }}
+      <button (click)="alertService.clear()" class="btn-close float-end" aria-label="Close"></button>
+    </div>
+  </div>
+  }
+  }
+
   <div class="row">
     <div class="col-12">
-      <h4>Usuarios <a [routerLink]="['/create-user']" title="Agregar Usuario"><i class="fa-solid fa-user-plus"></i></a></h4>
+      <h4>Usuarios <a [routerLink]="['/create-user']" title="Agregar Usuario"><i class="fa-solid fa-user-plus"></i></a>
+      </h4>
     </div>
   </div>
 </div>

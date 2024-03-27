@@ -4,6 +4,8 @@ import { UserService } from '../../../services/user/user.service';
 import { Observable } from 'rxjs';
 import { User } from '../../../interfaces/user';
 import { Router, RouterLink } from '@angular/router';
+import { Alert } from '../../../interfaces/alert';
+import { AlertService } from '../../../services/alerts/alert.service';
 
 @Component({
   selector: 'app-user-create',
@@ -14,12 +16,17 @@ import { Router, RouterLink } from '@angular/router';
 })
 export class UserCreateComponent {
 
+  public alertServiceObs$!: Observable<Alert>;
+
   userForm = new FormGroup({
     name: new FormControl('', Validators.required)
   });
 
   //Inyectamos el servicio de usuarios
-  constructor(private readonly userService: UserService,private router: Router) { }
+  constructor(private readonly userService: UserService, private router: Router, public readonly alertService: AlertService) {
+    //Obtenemos service para las alertas
+    this.alertServiceObs$ = this.alertService.initObsAlert();
+  }
 
   handleSubmit() {
     console.log(this.userForm.valid);
@@ -31,11 +38,14 @@ export class UserCreateComponent {
         next: (response) => {
           console.log("Usuario creado con exito => " + JSON.stringify(response));
 
+          this.alertService.success("Usuario creado con exito => " + JSON.stringify(response));
+
           //redireccionar a la lista de usuarios usando ruterlink
           this.router.navigate(['/users']);
         },
         error: (error) => {
           console.error("Creo que algo salio mal, Error => " + error);
+          this.alertService.error("Creo que algo salio mal, Error => " + error);
         }
       });
     }

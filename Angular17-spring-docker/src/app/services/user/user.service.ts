@@ -18,19 +18,6 @@ export class UserService {
     this.loadUsers();
   }
 
-  usuarios: User[] = [
-    { id: 1, name: 'Roberto Sanchez' },
-    { id: 2, name: 'Carlos Juarez' },
-    { id: 3, name: 'Juan Perez' },
-    { id: 4, name: 'Pedro Zazueta' },
-    { id: 5, name: 'Luis Felix' },
-    { id: 6, name: 'Carlos Urias' },
-    { id: 7, name: 'Juan Gonzalez' },
-    { id: 8, name: 'Pedro Santos' },
-    { id: 9, name: 'Luis Obeso' },
-    { id: 10, name: 'Roberto Valle' }
-  ];
-
   private loadUsers() {
     this.httpClient.get<User[]>(`${this.backendURL}`).subscribe(users => {
       this.users$.next(users);
@@ -38,12 +25,7 @@ export class UserService {
   }
 
   getUsers(): Observable<User[]> {
-
     return this.users$.asObservable();
-  }
-
-  getUser(id: number): User {
-    return this.usuarios[id];
   }
 
   createUser(user: User): Observable<User> {
