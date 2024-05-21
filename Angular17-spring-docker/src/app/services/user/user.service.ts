@@ -18,7 +18,7 @@ export class UserService {
     this.loadUsers();
   }
 
-  private loadUsers() {
+  loadUsers() {
     this.httpClient.get<User[]>(`${this.backendURL}`).subscribe(users => {
       this.users$.next(users);
     });
@@ -31,10 +31,7 @@ export class UserService {
   createUser(user: User): Observable<User> {
     return this.httpClient.post<User>(`${this.backendURL}`, user).pipe(
       tap(savedUser => {
-        // Agregar el nuevo usuario a la lista actual de usuarios
-        const currentUsers = this.users$.value;
-        const updatedUsers = [...currentUsers, savedUser];
-        this.users$.next(updatedUsers);
+        this.loadUsers();
       })
     );
   }

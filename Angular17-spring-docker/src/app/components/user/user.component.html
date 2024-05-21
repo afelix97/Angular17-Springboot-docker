@@ -63,32 +63,5 @@
       aria-label="Select page of periodic elements">
     </mat-paginator>
   </div>
-  <div class="row">
-
-    <table aria-label="Tabla de usuarios">
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>ID</th>
-          <th>Nombre</th>
-          <th>Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        @for (user of (usersData$ | async) ; track $index) {
-        <tr>
-          <td>{{ $index + 1 }}</td>
-          <td>{{ user.id }}</td>
-          <td>{{ user.name | uppercase }}</td>
-          <td>
-            <button class="btn btn-outline-danger btn-sm" (click)="deleteUser(user.id)"><i
-                class="fa-solid fa-trash-can"></i></button>
-          </td>
-        </tr>
-        }
-      </tbody>
-    </table>
-
-  </div>
 
 </div>
